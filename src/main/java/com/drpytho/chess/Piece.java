@@ -1,4 +1,4 @@
-
+package com.drpytho.chess;
 
 public abstract class Piece {
   private BoardLocation location;
@@ -10,5 +10,4 @@ public abstract class Piece {
   }
 
   public abstract Set<BoardLocation> validMoves(Board board);
-
 }

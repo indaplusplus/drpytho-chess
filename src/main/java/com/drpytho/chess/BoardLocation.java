@@ -1,4 +1,4 @@
-
+package com.drpytho.chess;
 
 public class BoardLocation {
   private int row;
@@ -29,5 +29,9 @@ public class BoardLocation {
 
   public int column() {
     return this.column;
+  }
+
+  public String toString() {
+    return "[" + this.row + ", " + this.column + "]";
   }
 }
