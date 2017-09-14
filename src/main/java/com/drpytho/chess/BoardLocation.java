@@ -1,37 +1,47 @@
 package com.drpytho.chess;
 
 public class BoardLocation {
-  private int row;
-  private int column;
+  public final int row;
+  public final int col;
 
   public BoardLocation(String location) {
     // Should this be bounded???
 
     // Parse e3, A1, H8 ...
     location = location.toLowerCase();
-    this.column = location.charAt(0)-'a';
-    this.row = location.charAt(1)-'1';
+    this.col = location.charAt(0) - ((int)'a');
+    this.row = location.charAt(1) - ((int)'1');
   }
 
-  public BoardLocation(int row, int column) {
+  public BoardLocation(int row, int col) {
     this.row = row;
-    this.column = column;
+    this.col = col;
   }
 
-  public void translate(int row, int column) {
-    this.row += row;
-    this.column += column;
+  @Override public int hashCode() {
+    return (1000 * row) ^ col;
   }
 
-  public int row() {
-    return this.row;
+
+  @Override public boolean equals(Object obj)
+  {
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
+
+    BoardLocation other = (BoardLocation) obj;
+    if (row != other.row) return false;
+    if (col != other.col) return false;
+
+    return true;
   }
 
-  public int column() {
-    return this.column;
+
+  public BoardLocation translate(int row, int column) {
+    return new BoardLocation(this.row + row, this.col + column);
   }
 
   public String toString() {
-    return "[" + this.row + ", " + this.column + "]";
+    return "[" + this.row + ", " + this.col + "]";
   }
 }
