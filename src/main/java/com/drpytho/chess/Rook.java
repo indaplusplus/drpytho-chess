@@ -22,9 +22,14 @@ public class Rook extends Piece {
 
     for (int[] dir : directions) {
       BoardLocation next = loc.translate(dir[0], dir[1]);
-      while (board.inRange(next) && board.at(next).color != this.color) {
-        possibleLocations.add(new Move(loc, next));
-        next = next.translate(dir[0], dir[1]);
+      while (board.inRange(next)) {
+        Piece p = board.at(next);
+        if (p == null || (p != null && p.color != this.color)) {
+          possibleLocations.add(new Move(loc, next));
+          next = next.translate(dir[0], dir[1]);
+        } else {
+          break;
+        }
       }
     }
     return possibleLocations;

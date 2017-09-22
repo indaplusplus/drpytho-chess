@@ -83,9 +83,9 @@ public class Board {
   public boolean inRange(BoardLocation location) {
     return
       (location.row >= 0) &&
-      (location.row <= this.HEIGHT) &&
+      (location.row < this.HEIGHT) &&
       (location.col >= 0) &&
-      (location.col <= this.WIDTH);
+      (location.col < this.WIDTH);
   }
 
   private void assertInRage(BoardLocation location) throws IndexOutOfBoundsException {
@@ -123,7 +123,14 @@ public class Board {
     this.set(from, null);
   }
 
-  public boolean makeMove(Move m) {
+  public boolean makeMove(Move m, Player p) {
+    if (!inRange(m.from) || !inRange(m.to)) {
+      return false;
+    }
+    if (at(m.from).color != p.color) {
+      return false;
+    }
+
     if (this.at(m.from).validMoves(this).contains(m)) {
       this.move(m.from, m.to);
       return true;

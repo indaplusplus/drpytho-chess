@@ -29,10 +29,10 @@ public class King extends Piece {
       if (!board.inRange(newLocation)) { // Can't move of the board
         continue;
       }
-      if (board.at(newLocation).color == this.color) { // Can't move onto your own kind
-        continue;
+      Piece p = board.at(newLocation);
+      if (p == null || (p != null && p.color != this.color)) { // Can't move onto your own kind
+        possibleLocations.add(new Move(loc, newLocation));
       }
-      possibleLocations.add(new Move(loc, newLocation));
     }
 
     // Castle

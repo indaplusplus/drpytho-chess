@@ -28,10 +28,10 @@ public class Knight extends Piece {
       if (!board.inRange(next)) {
         continue;
       }
-      if (board.at(next).color == this.color) {
-        continue;
+      Piece p = board.at(next);
+      if (p == null || (p.color != this.color)) {
+        possibleLocations.add(new Move(loc, next));
       }
-      possibleLocations.add(new Move(loc, next));
     }
 
     return possibleLocations;

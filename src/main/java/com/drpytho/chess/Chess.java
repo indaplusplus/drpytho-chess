@@ -5,8 +5,8 @@ import java.util.Scanner;
 public class Chess {
   private Board board;
 
-  private Player player1;
-  private Player player2;
+  private Player[] players;
+
 
   public Chess() {
     final String[] rows =
@@ -19,19 +19,25 @@ public class Chess {
        "pppppppp",
        "rnbkqbnr"};
     this.board = new Board(rows, 8, 8);
-    this.player1 = new Player(Color.WHITE);
-    this.player2 = new Player(Color.BLACK);
+    this.players = new Player[2];
+    this.players[0] = new Player(Color.WHITE);
+    this.players[1] = new Player(Color.BLACK);
   }
 
   public void run() {
     boolean running = true;
     Scanner scanner = new Scanner(System.in);
+    int currentPlayer = 0;
     while(running) {
       board.print();
       System.out.print("> ");
       String line = scanner.nextLine();
       Move m = new Move(line);
-      board.makeMove(m);
+      if (board.makeMove(m, players[currentPlayer])) {
+        // move was successfull
+        // Other persons turn
+        currentPlayer = (currentPlayer + 1) % 2;
+      }
     }
   }
 
