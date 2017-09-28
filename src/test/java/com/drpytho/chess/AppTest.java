@@ -31,10 +31,4 @@ public class AppTest extends TestCase {
   public void testApp() {
     assertTrue(true);
   }
-
-  public void testBoardLocation() {
-    BoardLocation bl = new BoardLocation("A1");
-    assertEquals(bl.row(), 0);
-    assertEquals(bl.column(), 0);
-  }
 }

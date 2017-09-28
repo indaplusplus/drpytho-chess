@@ -3,19 +3,28 @@ package com.drpytho.chess;
 import java.lang.IndexOutOfBoundsException;
 
 public class Board {
-  public final int WIDTH;
-  public final int HEIGHT;
+  public final int boardSize;
+  private ArrayList<Piece[]> boards;
 
-  private Piece[] board;
-
-  public Board(int width, int height) {
-    this.WIDTH = width;
-    this.HEIGHT = height;
-    board = new Piece[width*height];
+  public Board(int boardSize) {
+    this.boardSize = boardSize;
+    boards.add(new Piece[boardSize*boardSize]);
   }
 
   public Board() {
-    this(8,8);
+    this(8);
+  }
+
+  public Piece[] copyCurrentBoard() {
+    Piece[] copy = new Piece[boardSize*boardSize];
+    Piece[] current = this.getCurrentBoard();
+    for (int i = 0; i < current.size(); i++) {
+      copy[i] = current[i];
+    }
+  }
+
+  private Piece[] getCurrentBoard() {
+    return boards.get(boards.size() - 1);
   }
 
   public Board(String[] rows, int width, int height) {
@@ -23,7 +32,7 @@ public class Board {
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        this.board[i*this.WIDTH + j] = Piece.getPieceFromChar(rows[i].charAt(j));
+        this.boards.[i*this.WIDTH + j] = Piece.getPieceFromChar(rows[i].charAt(j));
       }
     }
   }
